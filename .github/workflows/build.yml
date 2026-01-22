@@ -1,0 +1,25 @@
+name: Build & Push MultiStage
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login ECR
+        run: |
+          aws ecr get-login-password --region us-east-1 \
+          | docker login --username AWS --password-stdin 145023123305.dkr.ecr.us-east-1.amazonaws.com
+
+      - name: Build image
+        run: |
+          docker build -t multistage-web:${{ github.sha }} .
+
+      - name: Tag & Push
+        run: |
+          docker tag multistage-web:${{ github.sha }} 145023123305.dkr.ecr.us-east-1.amazonaws.com/multistage-web:${{ github.sha }}
+          docker push 145023123305.dkr.ecr.us-east-1.amazonaws.com/multistage-web:${{ github.sha }}
