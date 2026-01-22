@@ -23,9 +23,9 @@ jobs:
 
       - name: Build image
         run: |
-          docker build -t multistage-web:${{ github.sha }} .
+          docker build -t fcj-chatbot:${{ github.sha }} .
 
       - name: Tag & Push
         run: |
-          docker tag multistage-web:${{ github.sha }} 145023123305.dkr.ecr.us-east-1.amazonaws.com/multistage-web:${{ github.sha }}
-          docker push 145023123305.dkr.ecr.us-east-1.amazonaws.com/multistage-web:${{ github.sha }}
+          docker tag fcj-chatbot:${{ github.sha }} 145023123305.dkr.ecr.us-east-1.amazonaws.com/fcj-chatbot:${{ github.sha }}
+          docker push 145023123305.dkr.ecr.us-east-1.amazonaws.com/fcj-chatbot:${{ github.sha }}
